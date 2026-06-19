@@ -1,0 +1,8 @@
+PyYAML>=6.0
+pytest>=7.0
+# Optional, for hardware automation (not needed for manual bench or demo):
+# pyvisa>=1.13
+# pyvisa-py>=0.7        # pure-python VISA backend (no NI-VISA needed)
+# pyserial>=3.5         # if your supply/DMM is serial
+# Optional, for PDF report export:
+# weasyprint>=60

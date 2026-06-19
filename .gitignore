@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+data/campaign*.csv
+data/resistors.csv
+reports/*.html
+reports/*.pdf
+!reports/.gitkeep
+!data/.gitkeep
+.pytest_cache/
+.venv/
+__pycache__/
+.pytest_cache/

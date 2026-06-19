@@ -1,0 +1,40 @@
+# Spec limits for the QC3.0/QC2.0 USB buck converter module (DUT).
+#
+# IMPORTANT: this module has no formal datasheet. Limits started from USB QC
+# voltage tolerance (~+/-5%) and typical small-buck efficiency, then each is
+# tightened/justified against measurement with its `source` recorded.
+#
+# STATUS (Day 1): only the 5V rail was characterized on one unit (U1, 25C).
+# 9V/12V limits below are UNVERIFIED starting placeholders (Day 2 work).
+
+part: "QC3.0 USB DC-DC Buck Module"
+description: "6-32V in, QC2.0/3.0 negotiated 5V/9V/12V USB output"
+
+rails:
+  # ---- 5V rail: characterized on U1 @ 25C (Day 1) ----
+  "5V":
+    vout_nom: 5.0
+    limits:
+      vout_noload:    {units: "V",  lower: 4.75, upper: 5.25, typ: 5.0,  source: "QC +/-5%; U1 measured ~5.12V (light load)"}
+      line_reg_pct:   {units: "%",  upper: 2.0,                          source: "design target; U1 measured 0.4% across Vin 10-12V"}
+      load_reg_pct:   {units: "%",  upper: 5.0,                          source: "design target; U1 droop below DMM resolution (<0.2%)"}
+      efficiency_pct: {units: "%",  lower: 80.0,                         source: "typical small buck; NOT yet measured (efficiency deferred -- needs Iin sensing)"}
+      dropout_vin:    {units: "V",  upper: 10.0,                         source: "REVISED from 6.0: measured ~9.7V no-load wake-up, load-dependent (browns out <12V under load). Preliminary -- run --dropout sweep to finalize"}
+
+  # ---- 9V rail: NOT yet characterized (Day 2) -- placeholders ----
+  "9V":
+    vout_nom: 9.0
+    limits:
+      vout_noload:    {units: "V",  lower: 8.55, upper: 9.45, typ: 9.0,  source: "QC +/-5% (unverified)"}
+      line_reg_pct:   {units: "%",  upper: 2.0,                          source: "design target (unverified)"}
+      load_reg_pct:   {units: "%",  upper: 5.0,                          source: "design target (unverified)"}
+      efficiency_pct: {units: "%",  lower: 85.0,                         source: "typical small buck (unverified)"}
+
+  # ---- 12V rail: NOT yet characterized (Day 2) -- placeholders ----
+  "12V":
+    vout_nom: 12.0
+    limits:
+      vout_noload:    {units: "V",  lower: 11.4, upper: 12.6, typ: 12.0, source: "QC +/-5% (unverified)"}
+      line_reg_pct:   {units: "%",  upper: 2.0,                          source: "design target (unverified)"}
+      load_reg_pct:   {units: "%",  upper: 5.0,                          source: "design target (unverified)"}
+      efficiency_pct: {units: "%",  lower: 85.0,                         source: "typical small buck (unverified)"}
