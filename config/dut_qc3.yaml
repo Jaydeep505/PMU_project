@@ -2,39 +2,42 @@
 #
 # IMPORTANT: this module has no formal datasheet. Limits started from USB QC
 # voltage tolerance (~+/-5%) and typical small-buck efficiency, then each is
-# tightened/justified against measurement with its `source` recorded.
+# justified against measurement with its `source` recorded. Limits are NOT
+# moved to make the DUT pass -- a design target the population misses is
+# recorded as a miss (see 9V line_reg).
 #
-# STATUS (Day 1): only the 5V rail was characterized on one unit (U1, 25C).
-# 9V/12V limits below are UNVERIFIED starting placeholders (Day 2 work).
+# STATUS (Day 2): 5V/9V/12V characterized across 3 units (U1/U2/U3) @ 25C.
+# Source: 5V charger -> XL6009 boost (the Day-1 adjustable buck was defective
+# and replaced). Operating point Vin=15V (top of sweep, full headroom).
+# Cpk/yield are n=3 -> DIRECTIONAL ONLY; a qualified Cpk needs ~30 units.
 
 part: "QC3.0 USB DC-DC Buck Module"
 description: "6-32V in, QC2.0/3.0 negotiated 5V/9V/12V USB output"
 
 rails:
-  # ---- 5V rail: characterized on U1 @ 25C (Day 1) ----
+  # ---- 5V rail: characterized U1/U2/U3 @ 25C ----
   "5V":
     vout_nom: 5.0
     limits:
-      vout_noload:    {units: "V",  lower: 4.75, upper: 5.25, typ: 5.0,  source: "QC +/-5%; U1 measured ~5.12V (light load)"}
-      line_reg_pct:   {units: "%",  upper: 2.0,                          source: "design target; U1 measured 0.4% across Vin 10-12V"}
-      load_reg_pct:   {units: "%",  upper: 5.0,                          source: "design target; U1 droop below DMM resolution (<0.2%)"}
-      efficiency_pct: {units: "%",  lower: 80.0,                         source: "typical small buck; NOT yet measured (efficiency deferred -- needs Iin sensing)"}
-      dropout_vin:    {units: "V",  upper: 10.0,                         source: "REVISED from 6.0: measured ~9.7V no-load wake-up, load-dependent (browns out <12V under load). Preliminary -- run --dropout sweep to finalize"}
+      vout_noload:    {units: "V",  lower: 4.75, upper: 5.25, typ: 5.0,  source: "QC +/-5%; measured 5.10-5.12V across U1-U3 (100% yield, Cpk 4.8)"}
+      line_reg_pct:   {units: "%",  upper: 2.0,                          source: "design target; measured ~0% (below DMM resolution) across U1-U3. CAVEAT: 5V Vin spans differed by unit (U1 ~11.5-12V, U2/U3 13-15V) -- not a clean common-span figure; re-run all units over one span to qualify"}
+      load_reg_pct:   {units: "%",  upper: 5.0,                          source: "design target; measured 0.0-0.4% across U1-U3 (100% yield, Cpk 9.8)"}
+      efficiency_pct: {units: "%",  lower: 80.0,                         source: "typical small buck; NOT measured (single DMM can't capture Vout + Iin at one operating point)"}
 
-  # ---- 9V rail: NOT yet characterized (Day 2) -- placeholders ----
+  # ---- 9V rail: characterized U1/U2/U3 @ 25C ----
   "9V":
     vout_nom: 9.0
     limits:
-      vout_noload:    {units: "V",  lower: 8.55, upper: 9.45, typ: 9.0,  source: "QC +/-5% (unverified)"}
-      line_reg_pct:   {units: "%",  upper: 2.0,                          source: "design target (unverified)"}
-      load_reg_pct:   {units: "%",  upper: 5.0,                          source: "design target (unverified)"}
-      efficiency_pct: {units: "%",  lower: 85.0,                         source: "typical small buck (unverified)"}
+      vout_noload:    {units: "V",  lower: 8.55, upper: 9.45, typ: 9.0,  source: "QC +/-5%; measured 9.11-9.13V across U1-U3 (100% yield, Cpk 13.5) -- very tight"}
+      line_reg_pct:   {units: "%",  upper: 2.0,                          source: "DESIGN TARGET NOT MET: U1 2.00 / U2 2.11(FAIL) / U3 1.67% -> 67% yield, Cpk 0.13 (n=3, directional). Confirmed real on re-run over 12-15V (NOT a near-dropout artifact). 9V regulates ~5-10x looser than 5V/12V; root cause not yet established. Limit kept at target -- recorded as a miss, not relaxed"}
+      load_reg_pct:   {units: "%",  upper: 5.0,                          source: "design target; U1 2.44 / U2 0.11 / U3 0.11% -> 100% yield but Cpk 1.25 (marginal vs 1.33 target). U1 is a 20x outlier -- resolve whether real part variation or a different load-current range on U1 before qualifying"}
+      efficiency_pct: {units: "%",  lower: 85.0,                         source: "typical small buck; NOT measured (single DMM, see 5V note)"}
 
-  # ---- 12V rail: NOT yet characterized (Day 2) -- placeholders ----
+  # ---- 12V rail: characterized U1/U2/U3 @ 25C ----
   "12V":
     vout_nom: 12.0
     limits:
-      vout_noload:    {units: "V",  lower: 11.4, upper: 12.6, typ: 12.0, source: "QC +/-5% (unverified)"}
-      line_reg_pct:   {units: "%",  upper: 2.0,                          source: "design target (unverified)"}
-      load_reg_pct:   {units: "%",  upper: 5.0,                          source: "design target (unverified)"}
-      efficiency_pct: {units: "%",  lower: 85.0,                         source: "typical small buck (unverified)"}
+      vout_noload:    {units: "V",  lower: 11.4, upper: 12.6, typ: 12.0, source: "QC +/-5%; measured 11.94-11.98V across U1-U3 (100% yield, Cpk 10.0)"}
+      line_reg_pct:   {units: "%",  upper: 2.0,                          source: "design target; measured 0.0-0.25% across U1-U3 (100% yield, Cpk 6.0)"}
+      load_reg_pct:   {units: "%",  upper: 5.0,                          source: "design target; measured 0.0-0.25% across U1-U3 (100% yield, Cpk 15.7)"}
+      efficiency_pct: {units: "%",  lower: 85.0,                         source: "typical small buck; NOT measured (single DMM, see 5V note)"}

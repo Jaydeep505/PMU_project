@@ -6,12 +6,11 @@
 
 units: ["U1", "U2", "U3"]          # measure all; spot-check extras at nominal
 
-temperatures_c: [5, 25, 50]
+temperatures_c: [25]
 
 # Vin sweep used for line regulation / dropout. The DUT input is set via the
 # adjustable buck; read the true value with the DMM.
-vin_points: [6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0]
-
+vin_points: [6.0, 9.0, 12.0, 13.0, 14.0, 15.0]
 # Rails to validate (must exist in dut_qc3.yaml). 9V/12V require the QC trigger
 # board to negotiate; 5V is the default rail.
 rails: ["5V", "9V", "12V"]

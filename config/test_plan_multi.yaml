@@ -1,0 +1,4 @@
+units: ["U2", "U3"]
+temperatures_c: [25]
+vin_points: [13.0, 15.0]
+rails: ["5V", "9V", "12V"]

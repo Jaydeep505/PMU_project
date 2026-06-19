@@ -1,0 +1,7 @@
+timestamp,parameter,value,units,lower,upper,passed,rail,unit_id,vin,iout,temp_c
+2026-06-19T11:30:42,vout_noload,9.11,V,8.55,9.45,True,9V,U1,15.0,,25
+2026-06-19T11:35:23,line_reg_pct,1.999999999999997,%,,2.0,True,9V,U1,,,25
+2026-06-19T11:37:03,load_reg_pct,2.4444444444444517,%,,5.0,True,9V,U1,15.0,,25
+2026-06-19T11:38:42,vout_noload,11.98,V,11.4,12.6,True,12V,U1,15.0,,25
+2026-06-19T11:40:59,line_reg_pct,0.1666666666666631,%,,2.0,True,12V,U1,,,25
+2026-06-19T11:44:06,load_reg_pct,0.0,%,,5.0,True,12V,U1,15.0,,25
