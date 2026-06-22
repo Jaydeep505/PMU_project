@@ -56,7 +56,8 @@ def dedup_latest(rows):
     """
     best = {}
     for r in rows:
-        key = (r.get("unit_id", ""), r.get("rail", ""), r.get("parameter", ""))
+        key = (r.get("unit_id", ""), r.get("rail", ""),
+               r.get("parameter", ""), r.get("temp_c", ""))
         cur = best.get(key)
         if cur is None or r["timestamp"] > cur["timestamp"]:
             best[key] = r

@@ -1,0 +1,5 @@
+# config/test_plan_temp.yaml — temperature axis, conditions matched to the 25C run
+units: ["U2"]              # U2 is the 9V failer — start where the story is
+temperatures_c: [5, 50]    # 25C already exists; add the endpoints
+vin_points: [13.0, 15.0]   # same span as multi.csv so it pools with 25C
+rails: ["5V", "9V", "12V"]
