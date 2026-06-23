@@ -136,17 +136,6 @@ be condition/session specific (boost thermal state, exact Vin values) rather tha
 stable DUT-over-temperature characteristic. Needs more units and controlled conditions
 to resolve.
 
-## Out of scope (intentionally, not faked)
-
-- **Efficiency** — deferred. A single DMM cannot capture Vout *and* Iin at the same
-  operating point on a module whose operating point isn't repeatable. This is a
-  simultaneity problem, not an unfused-range one. Opt-in via `--efficiency` once a
-  second metering channel exists.
-- **Dropout / min-Vin sweep** — implemented, opt-in via `--dropout`.
-- **Output ripple, switching frequency, load-transient response, PSRR** — require an
-  oscilloscope. Out of scope, not simulated. Would slot behind the same instrument
-  interface when a scope is available.
-
 ## Data hygiene
 
 - **One line-reg row corrected by re-measure.** A 9 V / 5 °C row originally read
@@ -177,11 +166,3 @@ Recorded so they are not mistaken for DUT behaviour:
 - **Temperature axis is U2 only.** Given how tightly the three units cluster at 25 °C,
   U1/U3 likely track U2 — but part-to-part temperature spread is **not characterized**
   (engineering judgment, not measured data).
-
-## Open items
-
-1. Add more units to convert the directional n = 3 Cpk into a defensible population figure.
-2. Resolve the 9 V load-reg U1 outlier (real variation vs. inconsistent load-current range).
-3. Investigate the 9 V line-reg root cause.
-4. Common-span re-run of 5 V line reg across all units.
-5. Capture the measured Vin readback (not the commanded setpoint) into each row.
