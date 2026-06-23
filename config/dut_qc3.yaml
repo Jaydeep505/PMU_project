@@ -6,10 +6,10 @@
 # moved to make the DUT pass -- a design target the population misses is
 # recorded as a miss (see 9V line_reg).
 #
-# STATUS (Day 2): 5V/9V/12V characterized across 3 units (U1/U2/U3) @ 25C.
-# Source: 5V charger -> XL6009 boost (the Day-1 adjustable buck was defective
-# and replaced). Operating point Vin=15V (top of sweep, full headroom).
-# Cpk/yield are n=3 -> DIRECTIONAL ONLY; a qualified Cpk needs ~30 units.
+# STATUS: 5V/9V/12V characterized across 3 units (U1/U2/U3) @ 25C, plus a
+# temperature axis (5/25/50C) on U2. Source: 5V charger -> XL6009 boost.
+# Operating point Vin=15V (top of sweep, full headroom). Cpk/yield are n=3 ->
+# DIRECTIONAL ONLY; a qualified Cpk needs ~30 units. See RESULTS.md.
 
 part: "QC3.0 USB DC-DC Buck Module"
 description: "6-32V in, QC2.0/3.0 negotiated 5V/9V/12V USB output"

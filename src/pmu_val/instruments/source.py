@@ -1,7 +1,7 @@
 """
 Voltage source instruments.
 
-Physical setup today: 12 V SMPS -> adjustable buck module. You turn the pot
+Physical setup today: Mobile charger -> adjustable boost module. You turn the pot
 and read the value on the multimeter; this is your DUT input voltage (Vin).
 The ManualSource backend prompts you to set that voltage and confirms it.
 
@@ -16,14 +16,14 @@ from .base import Instrument, InstrumentInfo
 
 
 class ManualSource(Instrument):
-    """Operator-driven voltage source (SMPS + adjustable buck + multimeter)."""
+    """Operator-driven voltage source (Charger + adjustable boost + multimeter)."""
 
     def __init__(self, name: str = "VIN_SOURCE"):
         super().__init__(name)
 
     def connect(self) -> None:
         self._connected = True
-        print(f"[{self.name}] Manual source ready (SMPS + adjustable buck).")
+        print(f"[{self.name}] Manual source ready (Mobile charger + adjustable boost).")
 
     def disconnect(self) -> None:
         self._connected = False
@@ -33,7 +33,7 @@ class ManualSource(Instrument):
 
     def set_voltage(self, volts: float) -> float:
         """Ask the operator to dial in `volts` and read back the true value."""
-        print(f"\n>>> Set INPUT voltage to ~{volts:.2f} V (adjust the buck pot).")
+        print(f"\n>>> Set INPUT voltage to ~{volts:.2f} V (adjust the boost pot).")
         actual = float(input(f"    Measured Vin with multimeter [V]: ").strip())
         return actual
 
